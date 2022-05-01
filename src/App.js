@@ -1,15 +1,19 @@
 import './App.css';
-import MyFirstComponent from './components/MyFirstComponent';
+import Button from './components/Button'
 
 
 
 function App() {
   return (
     <div className="App">
+      <header className='App-header'>
 
-    <MyFirstComponent/>  
-   
-      
+
+   <Button name="Hola grupo de React" color="red"/>
+   <Button name="Hola grupo de React" color="green"/>
+   <Button name="Hola grupo de React" color="yellow"/>
+   <Button name="Hola grupo de React" color="purple"/>
+   </header>
     </div>
   );
 }
