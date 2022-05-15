@@ -1,49 +1,36 @@
-import './App.css';
-import {useEffect,useState} from 'react' //*Se ponen en{} para hacer desestructuracion
-import axios from 'axios';
-import Pokemon from './components/Pokemon';
+import './App.css'
+import {useState,useEffect} from 'react'
+import getDoggies from './services/getDoggies';
+
 
 
 
 function App() {
 
-  //*Props que voy a usar para mandarlas como props
-const [pokemon,setPokemon]=useState('pikachu')
-const[pokemonName,setPokemonName]=useState('')
-const [pokemonImage,setPokemonImage]=useState('')
-const [pokemonId,setPokemonId]=useState(null)
-const [pokemonAbilities,setPokemonAbilities]=useState([])
+  const [perrito,setPerrito]=useState('')
+  const [value,setValue]=useState(0)
+
+
+  useEffect(()=>{
+    getDoggies()
+    .then(res=>{
+      console.log(res.data)
+      setPerrito(res.data.message)
+      
+    })
+    .catch()
+    
+  },[value])
 
 
 
-
-//*El use Effect se va a ejecutar minimo una vez
-
-useEffect(()=>{
-  const url=`https://pokeapi.co/api/v2/pokemon/${pokemon}`
-
-  axios.get(url)
-  .then(res=>{
-    console.log(res.data)
-    setPokemonName(res.data.name)
-    setPokemonImage(res.data.sprites.front_default)
-    setPokemonId(res.data.id)
-    setPokemonAbilities(res.data.abilities)
-  })
-  .catch(error=>console.log(error))
-
-},[pokemon])//*Permite volver a ejecutar si hay algun cambio en el estado
- 
 
   return (
     <div className="App">
       <header className='App-header'>
 
-
-      <Pokemon name={pokemonName} image={pokemonImage} id={pokemonId} abilities={pokemonAbilities} />
-      <input onChange={(e)=>setPokemon(e.target.value)}/> 
-      <button onClick={()=>setPokemon('charizard')}>Change to Charizard</button>
-    
+        <img src={perrito} alt="" /> 
+        <button onClick={()=>setValue(value+1)}>Cambiar Imagen</button>   
 
    </header>
     </div>
